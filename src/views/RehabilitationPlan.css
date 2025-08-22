@@ -1,0 +1,378 @@
+.rehabilitation-plan {
+  padding: 24px;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+.rehabilitation-plan .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+/* 头部卡片样式 */
+.header-card {
+  margin-bottom: 24px;
+}
+
+.header-card .ant-card-body {
+  padding: 20px 24px;
+}
+
+/* 按钮对齐样式 */
+.header-card .ant-row {
+  align-items: flex-end;
+}
+
+.header-card .ant-col:last-child {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* 统计卡片样式 */
+.ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+/* 表格样式 */
+.ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 标签样式 */
+.ant-tag {
+  border-radius: 4px;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+/* 按钮样式 */
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+/* 进度条样式 */
+.ant-progress-line {
+  margin-bottom: 0;
+}
+
+.ant-progress-bg {
+  border-radius: 10px;
+}
+
+/* 选择器样式 */
+.ant-select-selector {
+  border-radius: 6px !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+/* 模态框样式 */
+.ant-modal-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.ant-modal-content {
+  border-radius: 8px;
+}
+
+/* 表单样式 */
+.ant-form-item-label > label {
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-input,
+.ant-input-number,
+.ant-picker {
+  border-radius: 6px;
+}
+
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-number:focus,
+.ant-input-number-focused,
+.ant-picker:focus,
+.ant-picker-focused {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 时间线样式 */
+.ant-timeline-item-head {
+  border-radius: 50%;
+}
+
+.ant-timeline-item-content {
+  margin-left: 16px;
+}
+
+/* 复选框样式 */
+.ant-checkbox-wrapper {
+  font-weight: 500;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+/* 标签页样式 */
+.ant-tabs-tab {
+  font-weight: 500;
+}
+
+.ant-tabs-tab-active {
+  font-weight: 600;
+}
+
+/* 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+  color: #999;
+}
+
+.empty-state .ant-typography {
+  color: #999;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .rehabilitation-plan {
+    padding: 16px;
+  }
+
+  .rehabilitation-plan .ant-card {
+    margin-bottom: 16px;
+  }
+
+  .header-card .ant-card-body {
+    padding: 16px;
+  }
+
+  .header-card .ant-col:last-child {
+    justify-content: center;
+    margin-top: 16px;
+    padding-top: 0 !important;
+  }
+
+  .ant-statistic-content {
+    font-size: 20px !important;
+  }
+
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .rehabilitation-plan {
+    padding: 12px;
+  }
+  
+  .ant-card-head-title {
+    font-size: 14px;
+  }
+  
+  .ant-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: auto;
+  }
+  
+  .ant-statistic-content {
+    font-size: 18px !important;
+  }
+}
+
+/* 卡片标题样式 */
+.ant-card-head-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+}
+
+/* 加载状态样式 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* 错误状态样式 */
+.error-container {
+  text-align: center;
+  padding: 40px 0;
+  color: #999;
+}
+
+.error-container .ant-typography {
+  color: #999;
+}
+
+/* 成功状态样式 */
+.success-container {
+  text-align: center;
+  padding: 40px 0;
+  color: #52c41a;
+}
+
+/* 警告状态样式 */
+.warning-container {
+  text-align: center;
+  padding: 40px 0;
+  color: #faad14;
+}
+
+/* 表格滚动样式 */
+.ant-table-body {
+  scrollbar-width: thin;
+  scrollbar-color: #d9d9d9 transparent;
+}
+
+.ant-table-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ant-table-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ant-table-body::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 3px;
+}
+
+.ant-table-body::-webkit-scrollbar-thumb:hover {
+  background-color: #bfbfbf;
+}
+
+/* 分页样式 */
+.ant-pagination {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.ant-pagination-item {
+  border-radius: 4px;
+}
+
+.ant-pagination-item-active {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-pagination-item-active a {
+  color: #fff;
+}
+
+/* 操作按钮组样式 */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.action-buttons .ant-btn {
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 计划项目样式 */
+.plan-item {
+  padding: 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background-color: #fff;
+}
+
+.plan-item:hover {
+  border-color: #d9d9d9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.plan-item-completed {
+  background-color: #f6ffed;
+  border-color: #b7eb8f;
+}
+
+.plan-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.plan-item-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.plan-item-description {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.plan-item-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #999;
+}
+
+/* 训练类型标签样式 */
+.training-type-tag {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* 频次标签样式 */
+.frequency-tag {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: #f0f0f0;
+  color: #666;
+  border: none;
+}
