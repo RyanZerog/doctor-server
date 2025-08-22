@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/doctor-server/static/css/main.0e17eab5.css",
-    "main.js": "/doctor-server/static/js/main.1f67e96e.js",
-    "index.html": "/doctor-server/index.html",
-    "main.0e17eab5.css.map": "/doctor-server/static/css/main.0e17eab5.css.map",
-    "main.1f67e96e.js.map": "/doctor-server/static/js/main.1f67e96e.js.map"
+    "main.css": "/static/css/main.fc2b4266.css",
+    "main.js": "/static/js/main.f77ba5d4.js",
+    "index.html": "/index.html",
+    "main.fc2b4266.css.map": "/static/css/main.fc2b4266.css.map",
+    "main.f77ba5d4.js.map": "/static/js/main.f77ba5d4.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e17eab5.css",
-    "static/js/main.1f67e96e.js"
+    "static/css/main.fc2b4266.css",
+    "static/js/main.f77ba5d4.js"
   ]
 }
