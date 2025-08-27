@@ -1,0 +1,239 @@
+.dashboard-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+}
+
+.time-range-selector .ant-btn {
+  margin-left: 8px;
+}
+
+/* 统计卡片样式 */
+.stat-card {
+  overflow: hidden;
+  border-radius: 8px;
+  height: 100%;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.stat-card .ant-statistic-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.stat-card .ant-statistic-content {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.stat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.stat-trend {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.stat-trend.positive {
+  color: #52c41a;
+}
+
+.stat-trend.negative {
+  color: #ff4d4f;
+}
+
+.stat-background {
+  position: absolute;
+  right: -10px;
+  bottom: -15px;
+  font-size: 100px;
+  opacity: 0.05;
+  color: #000;
+}
+
+.stat-icon {
+  margin-right: 8px;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.progress-bar {
+  width: 100%;
+}
+
+/* 颜色主题 */
+.patient-card .stat-background {
+  color: #1D5B79;
+}
+
+.visit-card .stat-background {
+  color: #cf1322;
+}
+
+.tag-card .stat-background {
+  color: #1890ff;
+}
+
+.recovery-card .stat-background {
+  color: #52c41a;
+}
+
+/* 列表卡片样式 */
+.list-card {
+  height: 100%;
+}
+
+.follow-up-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.follow-up-item {
+  padding: 12px 0;
+  transition: all 0.3s;
+}
+
+.follow-up-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.patient-link {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1D5B79;
+}
+
+.follow-up-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.follow-up-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.patient-tags {
+  margin-top: 4px;
+}
+
+/* 图表卡片样式 */
+.chart-card {
+  height: 100%;
+}
+
+.cause-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cause-stat-item {
+  margin-bottom: 8px;
+}
+
+.cause-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cause-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.cause-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.cause-count {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cause-percent {
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.cause-progress {
+  margin-top: 4px;
+}
+
+/* 趋势图表卡片 */
+.trend-card {
+  height: 100%;
+}
+
+.trend-placeholder {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .time-range-selector {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .stat-card {
+    margin-bottom: 16px;
+  }
+}
+
+/* 可点击的面瘫原因统计项 */
+.clickable-cause {
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  padding: 4px;
+  margin: -4px;
+}
+
+.clickable-cause:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

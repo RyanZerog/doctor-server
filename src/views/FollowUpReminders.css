@@ -1,0 +1,373 @@
+.follow-up-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.header-title h4 {
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.follow-up-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 标签页样式 */
+.followup-tabs .ant-tabs-nav {
+  margin-bottom: 20px;
+}
+
+.tab-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-badge {
+  margin-left: 4px;
+}
+
+/* 内容区域样式 */
+.tab-content {
+  padding: 8px 0;
+}
+
+.view-switcher {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 表格样式 */
+.followup-table {
+  margin-top: 16px;
+}
+
+.patient-info {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.patient-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.patient-name {
+  font-weight: 600;
+  color: #1D5B79;
+  font-size: 16px;
+}
+
+.patient-name:hover {
+  color: #0A4C6F;
+  text-decoration: underline;
+}
+
+.patient-meta {
+  color: #8c8c8c;
+  font-size: 12px;
+}
+
+.separator {
+  margin: 0 6px;
+  color: #d9d9d9;
+}
+
+/* 随访日期样式 */
+.followup-date {
+  min-width: 100px;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.date-icon {
+  color: #8c8c8c;
+}
+
+.date-status {
+  font-size: 12px;
+}
+
+/* 标签容器样式 */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.patient-tag {
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.cause-tag {
+  font-weight: 500;
+}
+
+/* 操作按钮样式 */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.action-buttons button {
+  transition: all 0.3s;
+}
+
+.action-buttons button:hover {
+  transform: translateY(-2px);
+}
+
+.complete-button {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+.complete-button:hover {
+  background-color: #73d13d;
+  border-color: #73d13d;
+}
+
+.reschedule-button, .contact-button {
+  color: #1D5B79;
+  border-color: #1D5B79;
+}
+
+/* 卡片视图样式 */
+.followup-cards {
+  margin-top: 16px;
+}
+
+.followup-card {
+  height: 100%;
+  transition: all 0.3s;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.followup-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.followup-card.today {
+  border-left: 4px solid #f5222d;
+}
+
+.followup-card.overdue {
+  border-left: 4px solid #ff4d4f;
+}
+
+.followup-card.upcoming {
+  border-left: 4px solid #faad14;
+}
+
+.followup-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.followup-patient-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.patient-name-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-name-link {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1D5B79;
+}
+
+.followup-badge {
+  margin-top: 4px;
+}
+
+.followup-details {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.detail-icon {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.patient-tags {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* 头像样式 */
+.avatar-男 {
+  background-color: #6ba3d6;
+}
+
+.avatar-女 {
+  background-color: #f4a6cd;
+}
+
+/* 模态框样式 */
+.followup-modal .ant-modal-content {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.patient-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.patient-name {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.modal-instruction {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.followup-datepicker {
+  margin-bottom: 16px;
+}
+
+.helper-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quick-button {
+  margin-top: 8px;
+}
+
+/* 提醒按钮 */
+.reminder-button {
+  background: linear-gradient(135deg, #1D5B79 0%, #0A4C6F 100%);
+  border: none;
+  box-shadow: 0 2px 8px rgba(29, 91, 121, 0.3);
+  transition: all 0.3s;
+}
+
+.reminder-button:hover {
+  background: linear-gradient(135deg, #1D5B79 20%, #0A4C6F 100%);
+  box-shadow: 0 4px 12px rgba(29, 91, 121, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 警告样式 */
+.overdue-alert {
+  margin-bottom: 20px;
+}
+
+/* 日历视图样式 */
+.calendar-view {
+  margin-top: 20px;
+}
+
+.followup-calendar {
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.calendar-patients {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 70px;
+  overflow-y: auto;
+}
+
+.calendar-patient-item {
+  line-height: 1.5;
+  padding: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .header-actions {
+    width: 100%;
+  }
+  
+  .header-actions .ant-btn {
+    width: 100%;
+  }
+  
+  .view-switcher {
+    margin-bottom: 16px;
+  }
+  
+  .view-switcher .ant-btn-group {
+    width: 100%;
+    display: flex;
+  }
+  
+  .view-switcher .ant-btn {
+    flex: 1;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-buttons button {
+    width: 100%;
+  }
+} 

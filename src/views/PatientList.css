@@ -1,0 +1,231 @@
+.patient-list-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.add-patient-btn {
+  transition: all 0.3s;
+}
+
+.add-patient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.filter-card {
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+.search-input,
+.filter-select {
+  margin-bottom: 16px;
+}
+
+.list-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+/* 表格样式 */
+.patients-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.patient-row {
+  transition: all 0.3s;
+}
+
+.patient-row:hover {
+  background-color: rgba(29, 91, 121, 0.05);
+}
+
+.patient-name-link {
+  color: #1D5B79;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.patient-name-link:hover {
+  color: #0A4C6F;
+  text-decoration: underline;
+}
+
+.patient-meta, .patient-phone {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.patient-tag {
+  margin-bottom: 4px;
+}
+
+.clickable-tag {
+  transition: all 0.2s ease;
+}
+
+.clickable-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cause-tag {
+  font-weight: 500;
+  padding: 2px 8px;
+}
+
+/* 患者卡片视图 */
+.patient-cards-container {
+  margin-top: 16px;
+}
+
+.patient-card {
+  height: 100%;
+  transition: all 0.3s;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.patient-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.patient-card-header {
+  display: flex;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.patient-card-info {
+  margin-left: 16px;
+  flex: 1;
+}
+
+.follow-up-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.patient-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1D5B79;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.patient-meta {
+  color: #8c8c8c;
+  margin-bottom: 8px;
+}
+
+.patient-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.patient-card-details {
+  margin-top: 16px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 16px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.detail-item .anticon {
+  margin-right: 8px;
+  color: #8c8c8c;
+}
+
+.detail-label {
+  margin-right: 8px;
+  color: #595959;
+  font-weight: 500;
+}
+
+/* 按钮样式 */
+.edit-button, .tag-button, .delete-button {
+  transition: all 0.3s;
+}
+
+.edit-button:hover, .tag-button:hover, .delete-button:hover {
+  transform: scale(1.1);
+}
+
+.action-buttons {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.patient-row:hover .action-buttons {
+  opacity: 1;
+}
+
+/* 头像样式 */
+.avatar-男 {
+  background-color: #6ba3d6;
+}
+
+.avatar-女 {
+  background-color: #f4a6cd;
+}
+
+/* 无数据状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* 表单样式 */
+.patient-modal .ant-modal-content {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.patient-form .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .page-header .ant-btn {
+    width: 100%;
+  }
+  
+  .list-actions {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  
+  .list-actions .ant-segmented {
+    width: 100%;
+  }
+} 
