@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import usePatientStore from '../store/usePatientStore';
+import useTagStore from '../store/useTagStore';
 import './AssessmentDetails.css';
 
 const { Title, Text } = Typography;
@@ -28,8 +29,9 @@ const { RangePicker } = DatePicker;
 const AssessmentDetails = () => {
   const navigate = useNavigate();
   const { patients } = usePatientStore();
+  const { tags } = useTagStore();
   const [selectedPatient, setSelectedPatient] = useState('all');
-
+  const [selectedTags, setSelectedTags] = useState([]);
   const [dateRange, setDateRange] = useState(null);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -186,6 +188,15 @@ const AssessmentDetails = () => {
       filtered = filtered.filter(item => item.patientId === selectedPatient);
     }
 
+    // 按标签过滤
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter(item => {
+        const patient = patients.find(p => p.id === item.patientId);
+        if (!patient || !patient.tags) return false;
+        return selectedTags.some(tagId => patient.tags.includes(tagId));
+      });
+    }
+
     if (dateRange && dateRange.length === 2) {
       filtered = filtered.filter(item => {
         const itemDate = dayjs(item.timestamp);
@@ -194,7 +205,7 @@ const AssessmentDetails = () => {
     }
 
     return filtered;
-  }, [mockAssessmentData, selectedPatient, dateRange]);
+  }, [mockAssessmentData, selectedPatient, selectedTags, patients, dateRange]);
 
   // 统计数据
   const statistics = useMemo(() => {
@@ -223,6 +234,33 @@ const AssessmentDetails = () => {
       key: 'patientName',
       width: 100,
       render: (text) => <Text strong>{text}</Text>
+    },
+    {
+      title: '标签',
+      dataIndex: 'patientId',
+      key: 'tags',
+      width: 150,
+      render: (patientId) => {
+        const patient = patients.find(p => p.id === patientId);
+        if (!patient || !patient.tags || patient.tags.length === 0) {
+          return <Text type="secondary">-</Text>;
+        }
+        return (
+          <Space size={[0, 4]} wrap>
+            {patient.tags.slice(0, 2).map(tagId => {
+              const tag = tags.find(t => t.id === tagId);
+              return tag ? (
+                <Tag key={tag.id} color={tag.color} style={{ margin: '2px 2px' }}>
+                  {tag.name}
+                </Tag>
+              ) : null;
+            })}
+            {patient.tags.length > 2 && (
+              <Tag style={{ margin: '2px 2px' }}>+{patient.tags.length - 2}</Tag>
+            )}
+          </Space>
+        );
+      }
     },
     {
       title: 'Sunny Brook总分',
@@ -463,18 +501,35 @@ const AssessmentDetails = () => {
               </Select.Option>
             ))}
           </Select>
-          
+
+          <Select
+            mode="multiple"
+            placeholder="选择标签"
+            style={{ width: 200 }}
+            value={selectedTags}
+            onChange={setSelectedTags}
+            allowClear
+          >
+            {tags.map(tag => (
+              <Select.Option key={tag.id} value={tag.id}>
+                <Tag color={tag.color} style={{ margin: 0 }}>
+                  {tag.name}
+                </Tag>
+              </Select.Option>
+            ))}
+          </Select>
 
           <RangePicker
             placeholder={['开始日期', '结束日期']}
             value={dateRange}
             onChange={setDateRange}
           />
-          
-          <Button 
+
+          <Button
             icon={<FilterOutlined />}
             onClick={() => {
               setSelectedPatient('all');
+              setSelectedTags([]);
               setDateRange(null);
             }}
           >

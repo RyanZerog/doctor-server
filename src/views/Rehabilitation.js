@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Row, Col, Card, Table, Button, Select, Space, Typography, Progress, 
+import {
+  Row, Col, Card, Table, Button, Select, Space, Typography, Progress,
   Tabs, Modal, Form, Input, DatePicker, InputNumber, Tag, Tooltip,
-  Steps, Timeline, Statistic, Badge, Empty
+  Steps, Timeline, Statistic, Badge, Empty, Descriptions
 } from 'antd';
 import { 
   PlusOutlined, 
@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import usePatientStore from '../store/usePatientStore';
+import useTagStore from '../store/useTagStore';
 import './Rehabilitation.css';
 
 const { Title, Text, Paragraph } = Typography;
@@ -30,9 +31,11 @@ const { Step } = Steps;
 const Rehabilitation = () => {
   const navigate = useNavigate();
   const { patients } = usePatientStore();
+  const { tags } = useTagStore();
   const [activeTab, setActiveTab] = useState('plans');
   const [planModalVisible, setPlanModalVisible] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState('all');
+  const [selectedTags, setSelectedTags] = useState([]);
   const [form] = Form.useForm();
 
   // 模拟康复治疗方案数据
@@ -62,9 +65,23 @@ const Rehabilitation = () => {
 
   // 过滤数据
   const filteredPlans = useMemo(() => {
-    if (selectedPatient === 'all') return mockRehabilitationPlans;
-    return mockRehabilitationPlans.filter(plan => plan.patientId === selectedPatient);
-  }, [mockRehabilitationPlans, selectedPatient]);
+    let filtered = mockRehabilitationPlans;
+
+    if (selectedPatient !== 'all') {
+      filtered = filtered.filter(plan => plan.patientId === selectedPatient);
+    }
+
+    // 按标签过滤
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter(plan => {
+        const patient = patients.find(p => p.id === plan.patientId);
+        if (!patient || !patient.tags) return false;
+        return selectedTags.some(tagId => patient.tags.includes(tagId));
+      });
+    }
+
+    return filtered;
+  }, [mockRehabilitationPlans, selectedPatient, selectedTags, patients]);
 
   // 统计数据
   const statistics = useMemo(() => {
@@ -84,6 +101,33 @@ const Rehabilitation = () => {
       key: 'patientName',
       width: 120,
       render: (text) => <Text strong>{text}</Text>
+    },
+    {
+      title: '标签',
+      dataIndex: 'patientId',
+      key: 'tags',
+      width: 150,
+      render: (patientId) => {
+        const patient = patients.find(p => p.id === patientId);
+        if (!patient || !patient.tags || patient.tags.length === 0) {
+          return <Text type="secondary">-</Text>;
+        }
+        return (
+          <Space size={[0, 4]} wrap>
+            {patient.tags.slice(0, 2).map(tagId => {
+              const tag = tags.find(t => t.id === tagId);
+              return tag ? (
+                <Tag key={tag.id} color={tag.color} style={{ margin: '2px 2px' }}>
+                  {tag.name}
+                </Tag>
+              ) : null;
+            })}
+            {patient.tags.length > 2 && (
+              <Tag style={{ margin: '2px 2px' }}>+{patient.tags.length - 2}</Tag>
+            )}
+          </Space>
+        );
+      }
     },
     {
       title: '方案名称',
@@ -146,13 +190,29 @@ const Rehabilitation = () => {
       render: (_, record) => (
         <Space>
           <Tooltip title="查看详情">
-            <Button type="link" icon={<EyeOutlined />} size="small" />
+            <Button
+              type="link"
+              icon={<EyeOutlined />}
+              size="small"
+              onClick={() => handleViewPlan(record)}
+            />
           </Tooltip>
           <Tooltip title="编辑方案">
-            <Button type="link" icon={<EditOutlined />} size="small" />
+            <Button
+              type="link"
+              icon={<EditOutlined />}
+              size="small"
+              onClick={() => handleEditPlan(record)}
+            />
           </Tooltip>
           <Tooltip title="开始训练">
-            <Button type="link" icon={<PlayCircleOutlined />} size="small" />
+            <Button
+              type="link"
+              icon={<PlayCircleOutlined />}
+              size="small"
+              onClick={() => handleStartTraining(record)}
+              disabled={record.status === 'completed'}
+            />
           </Tooltip>
         </Space>
       )
@@ -163,6 +223,74 @@ const Rehabilitation = () => {
     console.log('创建康复方案:', values);
     setPlanModalVisible(false);
     form.resetFields();
+  };
+
+  const handleViewPlan = (record) => {
+    Modal.info({
+      title: '康复方案详情',
+      width: 800,
+      content: (
+        <div>
+          <Descriptions column={2} bordered>
+            <Descriptions.Item label="患者姓名">{record.patientName}</Descriptions.Item>
+            <Descriptions.Item label="方案名称">{record.planName}</Descriptions.Item>
+            <Descriptions.Item label="状态">
+              <Badge
+                status={record.status === 'active' ? 'processing' : record.status === 'completed' ? 'success' : 'warning'}
+                text={record.status === 'active' ? '进行中' : record.status === 'completed' ? '已完成' : '已暂停'}
+              />
+            </Descriptions.Item>
+            <Descriptions.Item label="进度">{record.progress}%</Descriptions.Item>
+            <Descriptions.Item label="开始日期">{record.startDate}</Descriptions.Item>
+            <Descriptions.Item label="预计结束">{record.endDate}</Descriptions.Item>
+            <Descriptions.Item label="总训练次数">{record.totalSessions}次</Descriptions.Item>
+            <Descriptions.Item label="已完成次数">{record.completedSessions}次</Descriptions.Item>
+            <Descriptions.Item label="创建医生">{record.createdBy}</Descriptions.Item>
+            <Descriptions.Item label="创建时间">{record.createdAt}</Descriptions.Item>
+            <Descriptions.Item label="备注" span={2}>
+              {record.notes || '无'}
+            </Descriptions.Item>
+          </Descriptions>
+          <div style={{ marginTop: 16 }}>
+            <Title level={5}>训练项目</Title>
+            {record.exercises.map((exercise, index) => (
+              <Card key={index} size="small" style={{ marginBottom: 8 }}>
+                <Space>
+                  <Text strong>{exercise.name}</Text>
+                  <Tag>{exercise.frequency}</Tag>
+                  <Tag color="blue">{exercise.duration}</Tag>
+                </Space>
+              </Card>
+            ))}
+          </div>
+        </div>
+      ),
+    });
+  };
+
+  const handleEditPlan = (record) => {
+    form.setFieldsValue({
+      patientId: record.patientId,
+      planName: record.planName,
+      startDate: dayjs(record.startDate),
+      totalSessions: record.totalSessions,
+      notes: record.notes
+    });
+    setPlanModalVisible(true);
+  };
+
+  const handleStartTraining = (record) => {
+    Modal.confirm({
+      title: '开始训练',
+      content: `确定要为患者 ${record.patientName} 开始今日的康复训练吗？`,
+      onOk() {
+        console.log('开始训练:', record);
+        // 这里可以跳转到训练界面或记录训练开始
+        Modal.success({
+          content: '训练已开始，请指导患者完成训练项目。',
+        });
+      },
+    });
   };
 
   const tabItems = [
@@ -218,7 +346,7 @@ const Rehabilitation = () => {
 
           {/* 筛选和操作 */}
           <Card style={{ marginBottom: 24 }}>
-            <Space>
+            <Space wrap>
               <Select
                 placeholder="选择患者"
                 style={{ width: 150 }}
@@ -232,9 +360,35 @@ const Rehabilitation = () => {
                   </Select.Option>
                 ))}
               </Select>
-              
-              <Button 
-                type="primary" 
+
+              <Select
+                mode="multiple"
+                placeholder="选择标签"
+                style={{ width: 200 }}
+                value={selectedTags}
+                onChange={setSelectedTags}
+                allowClear
+              >
+                {tags.map(tag => (
+                  <Select.Option key={tag.id} value={tag.id}>
+                    <Tag color={tag.color} style={{ margin: 0 }}>
+                      {tag.name}
+                    </Tag>
+                  </Select.Option>
+                ))}
+              </Select>
+
+              <Button
+                onClick={() => {
+                  setSelectedPatient('all');
+                  setSelectedTags([]);
+                }}
+              >
+                重置筛选
+              </Button>
+
+              <Button
+                type="primary"
                 icon={<PlusOutlined />}
                 onClick={() => setPlanModalVisible(true)}
               >

@@ -32,10 +32,13 @@
 }
 
 .logo-text {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  max-width: 220px;
 }
 
 /* 菜单样式 */

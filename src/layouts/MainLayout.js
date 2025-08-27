@@ -149,7 +149,7 @@ const MainLayout = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        width={240}
+        width={280}
         className="main-sider"
       >
         <div className={`logo-container ${collapsed ? 'collapsed' : ''}`}>
