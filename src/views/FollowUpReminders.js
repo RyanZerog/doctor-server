@@ -640,9 +640,11 @@ const FollowUpReminders = () => {
   return (
     <div className="follow-up-container">
       <div className="page-header">
-        <div className="header-title">
-          <Title level={4}>随访提醒</Title>
-          <Text className="subtitle">管理患者随访计划，按照建议的三个月复查周期进行提醒</Text>
+        <div className="header-content">
+          <div>
+            <Title level={2}>随访提醒</Title>
+            <Text type="secondary">管理患者随访计划，按照建议的三个月复查周期进行提醒</Text>
+          </div>
         </div>
         <div className="header-actions">
           {activeTab === 'today' && todayFollowUps.length > 0 && (
