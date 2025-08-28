@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Statistic, List, Tag, Typography, Alert, Button, Progress } from 'antd';
-import { 
-  TeamOutlined, 
-  CalendarOutlined, 
-  BellOutlined, 
+import {
+  TeamOutlined,
+  CalendarOutlined,
+  BellOutlined,
   TagOutlined,
   UserAddOutlined,
   RiseOutlined,
   LineChartOutlined,
-  PieChartOutlined,
-  MedicineBoxOutlined,
-  ExperimentOutlined
+  PieChartOutlined
 } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -51,7 +49,9 @@ const Dashboard = () => {
   // 随机生成一些统计数据用于展示
   const patientGrowthRate = 15; // 患者增长率
   const totalVisits = patients.length * 3; // 总随访次数
-  const recoveryRate = 75; // 恢复率
+
+  // 获取最常见的面瘫原因
+  const mostCommonCause = sortedCauseStats.length > 0 ? sortedCauseStats[0] : { cause: '暂无数据', count: 0 };
 
   // 随机生成不同原因的颜色
   const causeColors = {
@@ -154,20 +154,25 @@ const Dashboard = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card className="stat-card recovery-card">
+          <Card className="stat-card cause-card">
             <Statistic
-              title="恢复率"
-              value={recoveryRate}
-              suffix="%"
+              title="最常见原因"
+              value={mostCommonCause.count}
+              suffix="例"
               precision={0}
-              valueStyle={{ color: '#52c41a' }}
+              valueStyle={{ color: '#1890ff' }}
             />
             <div className="stat-footer">
-              <div className="progress-bar">
-                <Progress percent={recoveryRate} showInfo={false} strokeColor="#52c41a" />
+              <div className="cause-name" style={{
+                fontSize: '12px',
+                color: '#666',
+                marginTop: '8px',
+                fontWeight: 'bold'
+              }}>
+                {mostCommonCause.cause}
               </div>
             </div>
-            <ExperimentOutlined className="stat-background" />
+            <PieChartOutlined className="stat-background" />
           </Card>
         </Col>
       </Row>

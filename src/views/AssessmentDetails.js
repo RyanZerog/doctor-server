@@ -17,6 +17,7 @@ import {
   FrownOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
 import dayjs from 'dayjs';
 
 import usePatientStore from '../store/usePatientStore';
@@ -35,6 +36,8 @@ const AssessmentDetails = () => {
   const [dateRange, setDateRange] = useState(null);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
+
+
 
   // 面部评分选项配置（基于Android应用的表A和表B）
   const scoringOptions = {
@@ -179,6 +182,28 @@ const AssessmentDetails = () => {
 
     return data.sort((a, b) => dayjs(b.timestamp).unix() - dayjs(a.timestamp).unix());
   }, [patients]);
+
+  // 生成单个患者的历史评分数据用于曲线图
+  const generatePatientHistoryData = (patientId) => {
+    const patientData = mockAssessmentData.filter(item => item.patientId === patientId);
+    return patientData
+      .sort((a, b) => dayjs(a.timestamp).unix() - dayjs(b.timestamp).unix())
+      .map((item, index) => ({
+        assessment: `第${index + 1}次`,
+        date: dayjs(item.timestamp).format('MM-DD'),
+        sunnyBrookScore: item.sunnyBrookScore,
+        staticScore: item.staticScore,
+        voluntaryScore: item.voluntaryScore,
+        synkinesisScore: item.synkinesisScore,
+        // 各个动作的评分
+        eyeScore: item.actionScores.find(action => action.action === '眼（脸裂）')?.function.weightedScore || 0,
+        browScore: item.actionScores.find(action => action.action === '抬眉')?.function.weightedScore || 0,
+        noseScore: item.actionScores.find(action => action.action === '耸鼻')?.function.weightedScore || 0,
+        smileScore: item.actionScores.find(action => action.action === '微笑')?.function.weightedScore || 0,
+        purseLipsScore: item.actionScores.find(action => action.action === '撅嘴')?.function.weightedScore || 0,
+        closeEyeScore: item.actionScores.find(action => action.action === '闭眼')?.function.weightedScore || 0
+      }));
+  };
 
   // 过滤数据
   const filteredData = useMemo(() => {
@@ -563,7 +588,7 @@ const AssessmentDetails = () => {
         open={detailModalVisible}
         onCancel={() => setDetailModalVisible(false)}
         footer={null}
-        width={1000}
+        width={1200}
       >
         {selectedRecord && (
           <div>
@@ -659,6 +684,96 @@ const AssessmentDetails = () => {
                 }
               ]}
             />
+
+            {/* 患者历史评分趋势图 */}
+            <Card style={{ marginTop: 16 }}>
+              <Title level={5}>
+                <LineChartOutlined /> {selectedRecord.patientName} - Sunnybrook评分趋势
+              </Title>
+              {(() => {
+                const historyData = generatePatientHistoryData(selectedRecord.patientId);
+                if (historyData.length < 2) {
+                  return (
+                    <Empty
+                      description="需要至少2次评估记录才能显示趋势图"
+                      style={{ margin: '40px 0' }}
+                    />
+                  );
+                }
+                return (
+                  <ResponsiveContainer width="100%" height={400}>
+                    <LineChart data={historyData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis
+                        dataKey="date"
+                        tick={{ fontSize: 12 }}
+                      />
+                      <YAxis
+                        tick={{ fontSize: 12 }}
+                        domain={[0, 100]}
+                      />
+                      <RechartsTooltip
+                        formatter={(value, name) => [value, name]}
+                        labelFormatter={(label) => `评估时间: ${label}`}
+                      />
+                      <Legend />
+
+                      {/* 总分线 */}
+                      <Line
+                        type="monotone"
+                        dataKey="sunnyBrookScore"
+                        stroke="#1890ff"
+                        strokeWidth={3}
+                        name="Sunnybrook总分"
+                        dot={{ fill: '#1890ff', strokeWidth: 2, r: 6 }}
+                      />
+
+                      {/* 各个动作评分线 */}
+                      <Line
+                        type="monotone"
+                        dataKey="browScore"
+                        stroke="#52c41a"
+                        strokeWidth={2}
+                        name="抬眉"
+                        dot={{ fill: '#52c41a', r: 4 }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="noseScore"
+                        stroke="#faad14"
+                        strokeWidth={2}
+                        name="耸鼻"
+                        dot={{ fill: '#faad14', r: 4 }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="smileScore"
+                        stroke="#f5222d"
+                        strokeWidth={2}
+                        name="微笑"
+                        dot={{ fill: '#f5222d', r: 4 }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="purseLipsScore"
+                        stroke="#722ed1"
+                        strokeWidth={2}
+                        name="撅嘴"
+                        dot={{ fill: '#722ed1', r: 4 }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="closeEyeScore"
+                        stroke="#fa8c16"
+                        strokeWidth={2}
+                        name="闭眼"
+                        dot={{ fill: '#fa8c16', r: 4 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                );
+              })()}
+            </Card>
 
             {/* 计算公式说明 */}
             <Card size="small" style={{ marginTop: 16, backgroundColor: '#f9f9f9' }}>
